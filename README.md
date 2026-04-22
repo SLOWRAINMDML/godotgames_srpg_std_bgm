@@ -61,7 +61,11 @@ Generated SRPG_STD BGM prototypes exported from ACE-Step / ComfyUI.
 - [sfx_sword_slash_light_v1_00001_.ogg](https://github.com/SLOWRAINMDML/godotgames_srpg_std_bgm/blob/main/ogg/sfx_sword_slash_light_v1_00001_.ogg)
 - [sfx_thunder_strike_v1_00001_.ogg](https://github.com/SLOWRAINMDML/godotgames_srpg_std_bgm/blob/main/ogg/sfx_thunder_strike_v1_00001_.ogg)
 - [sfx_ui_confirm_v1_00001_.ogg](https://github.com/SLOWRAINMDML/godotgames_srpg_std_bgm/blob/main/ogg/sfx_ui_confirm_v1_00001_.ogg)
+- [skill_bgm_arcane_burst_v1_00001_.ogg](https://github.com/SLOWRAINMDML/godotgames_srpg_std_bgm/blob/main/ogg/skill_bgm_arcane_burst_v1_00001_.ogg)
+- [skill_bgm_dragon_roar_v1_00001_.ogg](https://github.com/SLOWRAINMDML/godotgames_srpg_std_bgm/blob/main/ogg/skill_bgm_dragon_roar_v1_00001_.ogg)
 - [skill_bgm_heroic_stinger_v1_00001_.ogg](https://github.com/SLOWRAINMDML/godotgames_srpg_std_bgm/blob/main/ogg/skill_bgm_heroic_stinger_v1_00001_.ogg)
+- [skill_bgm_holy_burst_v1_00001_.ogg](https://github.com/SLOWRAINMDML/godotgames_srpg_std_bgm/blob/main/ogg/skill_bgm_holy_burst_v1_00001_.ogg)
+- [skill_bgm_light_judgment_v1_00001_.ogg](https://github.com/SLOWRAINMDML/godotgames_srpg_std_bgm/blob/main/ogg/skill_bgm_light_judgment_v1_00001_.ogg)
 
 ## Notes
 These are prototype generations covering cathedral aria, choir, battle percussion, and theme variants.
