@@ -1,3 +1,9 @@
+## Browser Preview
+
+- After enabling GitHub Pages for this repository, you can listen in the browser from the hosted `index.html` preview page.
+- Recommended Pages source: deploy from `main` branch `/ (root)`.
+- Preview page file: `index.html`
+
 # godotgames_srpg_std_bgm
 
 Generated SRPG_STD BGM prototypes exported from ACE-Step / ComfyUI.
