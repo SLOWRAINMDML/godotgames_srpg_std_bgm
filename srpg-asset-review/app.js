@@ -82,7 +82,7 @@ function badge(text, cls = "") {
   return el;
 }
 
-function hasAllEightDirections(unit) {
+function hasAllRuntimeDirections(unit) {
   return Boolean(unit.asset_status?.all_directional_battle_visuals_exist);
 }
 
@@ -182,7 +182,7 @@ function renderCard(unit, absoluteIndex) {
   const badges = document.createElement("div");
   badges.className = "badges";
   badges.appendChild(badge(state, state.toLowerCase()));
-  if (hasAllEightDirections(unit)) badges.appendChild(badge("8-dir", "ready"));
+  if (hasAllRuntimeDirections(unit)) badges.appendChild(badge("4-dir", "ready"));
   else badges.appendChild(badge(`missing 4-dir ${missingDirectionCount(unit)}`, "missing"));
   if (unit.safety?.is_referenced) badges.appendChild(badge("referenced", "referenced"));
   if (unit.asset_status?.missing_paths?.length) badges.appendChild(badge(`missing ${unit.asset_status.missing_paths.length}`, "missing"));
@@ -269,7 +269,7 @@ function filteredUnits() {
     if (state !== "ALL" && decision.state !== state) return false;
     if (missingOnly && !(unit.asset_status?.missing_paths?.length)) return false;
     if (referencedOnly && !unit.safety?.is_referenced) return false;
-    if (incompleteDirsOnly && hasAllEightDirections(unit)) return false;
+    if (incompleteDirsOnly && hasAllRuntimeDirections(unit)) return false;
     return true;
   });
 }
@@ -333,7 +333,7 @@ function updateSummary(visible = Math.min(PAGE_SIZE, filteredUnits().length), fi
     badge(`filtered ${filtered}`),
     badge(`total ${total}`),
     ...STATES.map((s) => badge(`${s} ${counts[s] || 0}`, s.toLowerCase())),
-    badge(`incomplete 8-dir ${incompleteDirs}`, incompleteDirs ? "missing" : "ready"),
+    badge(`incomplete 4-dir ${incompleteDirs}`, incompleteDirs ? "missing" : "ready"),
     badge(`missing files ${missing}`, missing ? "missing" : "ready"),
     badge(`referenced ${referenced}`, "referenced"),
   );
