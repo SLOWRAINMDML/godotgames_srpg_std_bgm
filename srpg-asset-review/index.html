@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SRPG 8-Direction Asset Review</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=bgfix2" />
 </head>
 <body>
   <header class="site-header">
@@ -29,6 +29,12 @@
     <label class="check"><input id="missingFilter" type="checkbox" /> missing</label>
     <label class="check"><input id="referencedFilter" type="checkbox" /> referenced</label>
     <label class="check"><input id="incompleteDirsFilter" type="checkbox" /> incomplete 8-dir</label>
+    <select id="bgMode" title="Preview background">
+      <option value="clean">Clean matte</option>
+      <option value="light">Light matte</option>
+      <option value="dark">Dark matte</option>
+      <option value="checker">Checkerboard QA</option>
+    </select>
     <button id="exportBtn" class="primary">Export decisions.json</button>
   </nav>
 
@@ -60,6 +66,6 @@
     This page edits decisions in browser memory/localStorage only. Use <b>Export decisions.json</b>, then place it at <code>local_asset_review/decisions/decisions.json</code> for batch planning.
   </footer>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=bgfix2"></script>
 </body>
 </html>

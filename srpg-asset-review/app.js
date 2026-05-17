@@ -4,6 +4,7 @@ const STATES = ["KEEP", "ARCHIVE", "REJECT", "REVIEW", "BLOCKED"];
 const DIRECTIONS = ["s", "sw", "w", "nw", "n", "ne", "e", "se"];
 const PAGE_SIZE = 100;
 const STORAGE_KEY = "srpg_asset_review_decisions_v2";
+const BG_STORAGE_KEY = "srpg_asset_review_bg_mode_v1";
 
 let manifest = null;
 let decisions = { schema_version: "1.0", decisions: {} };
@@ -352,15 +353,28 @@ function resetPageAndRender() {
   render();
 }
 
+function applyBackgroundMode(mode) {
+  const safeMode = ["clean", "light", "dark", "checker"].includes(mode) ? mode : "clean";
+  document.body.dataset.bgMode = safeMode;
+  const select = $("bgMode");
+  if (select) select.value = safeMode;
+  try { localStorage.setItem(BG_STORAGE_KEY, safeMode); } catch (_error) {}
+}
+
 async function init() {
   manifest = await loadJson(MANIFEST_URL, { units: [] });
   const fileDecisions = await loadJson(DECISIONS_URL, { schema_version: "1.0", decisions: {} });
   decisions = mergeDecisions(fileDecisions, loadStoredDecisions());
   saveStoredDecisions();
 
+  let storedBgMode = "clean";
+  try { storedBgMode = localStorage.getItem(BG_STORAGE_KEY) || "clean"; } catch (_error) {}
+  applyBackgroundMode(storedBgMode);
+
   for (const id of ["search", "stateFilter", "missingFilter", "referencedFilter", "incompleteDirsFilter"]) {
     $(id).addEventListener("input", resetPageAndRender);
   }
+  $("bgMode").addEventListener("change", (event) => applyBackgroundMode(event.target.value));
   $("exportBtn").addEventListener("click", exportDecisions);
   $("prevPageBtn").addEventListener("click", () => { currentPage = Math.max(0, currentPage - 1); render(); window.scrollTo({ top: 0, behavior: "smooth" }); });
   $("nextPageBtn").addEventListener("click", () => { currentPage += 1; render(); window.scrollTo({ top: 0, behavior: "smooth" }); });
