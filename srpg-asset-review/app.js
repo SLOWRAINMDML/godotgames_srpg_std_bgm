@@ -1,7 +1,7 @@
 const MANIFEST_URL = "manifest.json";
 const DECISIONS_URL = "decisions.json";
 const STATES = ["KEEP", "ARCHIVE", "REJECT", "REVIEW", "BLOCKED"];
-const DIRECTIONS = ["s", "sw", "w", "nw", "n", "ne", "e", "se"];
+const DIRECTIONS = ["sw", "se", "ne", "nw"];
 const PAGE_SIZE = 100;
 const STORAGE_KEY = "srpg_asset_review_decisions_v2";
 const BG_STORAGE_KEY = "srpg_asset_review_bg_mode_v1";
@@ -183,7 +183,7 @@ function renderCard(unit, absoluteIndex) {
   badges.className = "badges";
   badges.appendChild(badge(state, state.toLowerCase()));
   if (hasAllEightDirections(unit)) badges.appendChild(badge("8-dir", "ready"));
-  else badges.appendChild(badge(`missing dirs ${missingDirectionCount(unit)}`, "missing"));
+  else badges.appendChild(badge(`missing 4-dir ${missingDirectionCount(unit)}`, "missing"));
   if (unit.safety?.is_referenced) badges.appendChild(badge("referenced", "referenced"));
   if (unit.asset_status?.missing_paths?.length) badges.appendChild(badge(`missing ${unit.asset_status.missing_paths.length}`, "missing"));
   if (unit.safety?.archive_eligible) badges.appendChild(badge("archive eligible", "ready"));

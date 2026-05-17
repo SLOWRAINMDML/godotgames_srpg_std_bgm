@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SRPG 8-Direction Asset Review</title>
-  <link rel="stylesheet" href="styles.css?v=bgfix2" />
+  <title>SRPG 4-Diagonal Asset Review</title>
+  <link rel="stylesheet" href="styles.css?v=diag4" />
 </head>
 <body>
   <header class="site-header">
     <div class="title-block">
       <p class="eyebrow">SLOWRAIN / SRPG_STD</p>
-      <h1>8-Direction Unit Asset Review</h1>
+      <h1>4-Diagonal Unit Asset Review</h1>
       <p class="lede">Review 100 units per page. Mark KEEP / ARCHIVE / REJECT / REVIEW / BLOCKED, then export decisions.json for batch processing.</p>
     </div>
     <div class="summary-grid" id="summary"></div>
@@ -28,7 +28,7 @@
     </select>
     <label class="check"><input id="missingFilter" type="checkbox" /> missing</label>
     <label class="check"><input id="referencedFilter" type="checkbox" /> referenced</label>
-    <label class="check"><input id="incompleteDirsFilter" type="checkbox" /> incomplete 8-dir</label>
+    <label class="check"><input id="incompleteDirsFilter" type="checkbox" /> incomplete 4-dir</label>
     <select id="bgMode" title="Preview background">
       <option value="clean">Clean matte</option>
       <option value="light">Light matte</option>
@@ -66,6 +66,6 @@
     This page edits decisions in browser memory/localStorage only. Use <b>Export decisions.json</b>, then place it at <code>local_asset_review/decisions/decisions.json</code> for batch planning.
   </footer>
 
-  <script src="app.js?v=bgfix2"></script>
+  <script src="app.js?v=diag4"></script>
 </body>
 </html>
