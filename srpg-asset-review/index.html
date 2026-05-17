@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SRPG 8-Direction Asset Review</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="title-block">
+      <p class="eyebrow">SLOWRAIN / SRPG_STD</p>
+      <h1>8-Direction Unit Asset Review</h1>
+      <p class="lede">Review 100 units per page. Mark KEEP / ARCHIVE / REJECT / REVIEW / BLOCKED, then export decisions.json for batch processing.</p>
+    </div>
+    <div class="summary-grid" id="summary"></div>
+  </header>
+
+  <nav class="control-bar" aria-label="Review controls">
+    <input id="search" placeholder="Search id / name / class / path" />
+    <select id="stateFilter" title="Filter by decision state">
+      <option value="ALL">All states</option>
+      <option>KEEP</option>
+      <option>ARCHIVE</option>
+      <option>REJECT</option>
+      <option>REVIEW</option>
+      <option>BLOCKED</option>
+    </select>
+    <label class="check"><input id="missingFilter" type="checkbox" /> missing</label>
+    <label class="check"><input id="referencedFilter" type="checkbox" /> referenced</label>
+    <label class="check"><input id="incompleteDirsFilter" type="checkbox" /> incomplete 8-dir</label>
+    <button id="exportBtn" class="primary">Export decisions.json</button>
+  </nav>
+
+  <section class="help-panel">
+    <details>
+      <summary>Decision guide</summary>
+      <div class="guide-grid">
+        <div><b>KEEP</b><span>Active roster / story unit / boss / good asset to keep in game.</span></div>
+        <div><b>ARCHIVE</b><span>Not active now, but worth preserving in external archive.</span></div>
+        <div><b>REJECT</b><span>Failed or unwanted asset. Still handled safely as archive/quarantine candidate.</span></div>
+        <div><b>REVIEW</b><span>Needs another look, rename, redraw, merge, or design decision.</span></div>
+        <div><b>BLOCKED</b><span>Do not auto-move. Referenced, missing, or parse/safety issue needs manual resolution.</span></div>
+      </div>
+    </details>
+  </section>
+
+  <section class="pager-shell" aria-label="Page navigation">
+    <div class="pager-main">
+      <button id="prevPageBtn">← Prev 100</button>
+      <select id="pageSelect" title="Jump to page"></select>
+      <button id="nextPageBtn">Next 100 →</button>
+    </div>
+    <div id="pageInfo" class="page-info"></div>
+  </section>
+
+  <main id="cards" class="review-list"></main>
+
+  <footer class="site-footer">
+    This page edits decisions in browser memory/localStorage only. Use <b>Export decisions.json</b>, then place it at <code>local_asset_review/decisions/decisions.json</code> for batch planning.
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
