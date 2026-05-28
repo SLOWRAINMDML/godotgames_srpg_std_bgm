@@ -1,9 +1,7 @@
 # SRPG Asset Review
 
-Generated from SRPG_STD active/bundled resources.
+GitHub Pages copy of the SRPG_STD asset review / unit usage board.
 
-- Build time: 2026-05-17T23:07:40+0900
-- Units: 1181
-- Thumbnails: 9408
-- Missing source images: 0
-- Lane: 0510 safe-noholes
+Published URL: https://slowrainmdml.github.io/godotgames_srpg_std_bgm/srpg-asset-review/
+
+Source files are synchronized from `SRPG_STD/local_asset_review/`.

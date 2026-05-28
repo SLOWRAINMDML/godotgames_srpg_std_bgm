@@ -1,71 +1,67 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SRPG 4-Diagonal Asset Review</title>
-  <link rel="stylesheet" href="styles.css?v=diag4" />
+  <title>SRPG Unit Usage Board</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="site-header">
-    <div class="title-block">
+    <div>
       <p class="eyebrow">SLOWRAIN / SRPG_STD</p>
-      <h1>4-Diagonal Unit Asset Review</h1>
-      <p class="lede">Review 100 units per page. Mark KEEP / ARCHIVE / REJECT / REVIEW / BLOCKED, then export decisions.json for batch processing.</p>
+      <h1>Unit Battle Usage Board</h1>
+      <p class="lede">유닛 배틀 프리뷰를 보면서 당장 쓸 유닛과 지금 쓰지 않을 유닛을 빠르게 표시하는 보드입니다.</p>
     </div>
-    <div class="summary-grid" id="summary"></div>
+    <div class="target-box">
+      <span class="target-label">active target</span>
+      <strong id="activeTarget">0 / 100</strong>
+      <span id="activeTargetHint">당장 사용 수를 계산 중입니다.</span>
+    </div>
   </header>
 
-  <nav class="control-bar" aria-label="Review controls">
-    <input id="search" placeholder="Search id / name / class / path" />
-    <select id="stateFilter" title="Filter by decision state">
-      <option value="ALL">All states</option>
-      <option>KEEP</option>
-      <option>ARCHIVE</option>
-      <option>REJECT</option>
-      <option>REVIEW</option>
-      <option>BLOCKED</option>
+  <section class="summary-strip" id="summary" aria-label="Usage summary"></section>
+
+  <nav class="control-bar" aria-label="Unit usage controls">
+    <input id="search" placeholder="id / 이름 / 클래스 / 경로 검색" />
+    <select id="stateFilter" title="상태 필터"></select>
+    <select id="focusFilter" title="범위 필터">
+      <option value="ALL">전체 유닛</option>
+      <option value="IMMEDIATE_REF">스테이지/유닛 참조</option>
+      <option value="MANUAL">수동 결정 있음</option>
+      <option value="MONSTER">몬스터만</option>
+      <option value="NON_MONSTER">아군/샘플만</option>
+      <option value="INCOMPLETE">프리뷰 불완전</option>
     </select>
-    <label class="check"><input id="missingFilter" type="checkbox" /> missing</label>
-    <label class="check"><input id="referencedFilter" type="checkbox" /> referenced</label>
-    <label class="check"><input id="incompleteDirsFilter" type="checkbox" /> incomplete 4-dir</label>
-    <select id="bgMode" title="Preview background">
-      <option value="clean">Clean matte</option>
-      <option value="light">Light matte</option>
-      <option value="dark">Dark matte</option>
-      <option value="checker">Checkerboard QA</option>
-    </select>
-    <button id="exportBtn" class="primary">Export decisions.json</button>
+    <button id="exportFullBtn" class="primary">Export full table</button>
+    <button id="exportOverridesBtn">Export overrides</button>
+    <button id="resetBtn">Reset local</button>
   </nav>
 
-  <section class="help-panel">
-    <details>
-      <summary>Decision guide</summary>
-      <div class="guide-grid">
-        <div><b>KEEP</b><span>Active roster / story unit / boss / good asset to keep in game.</span></div>
-        <div><b>ARCHIVE</b><span>Not active now, but worth preserving in external archive.</span></div>
-        <div><b>REJECT</b><span>Failed or unwanted asset. Still handled safely as archive/quarantine candidate.</span></div>
-        <div><b>REVIEW</b><span>Needs another look, rename, redraw, merge, or design decision.</span></div>
-        <div><b>BLOCKED</b><span>Do not auto-move. Referenced, missing, or parse/safety issue needs manual resolution.</span></div>
-      </div>
-    </details>
+  <section class="decision-guide" aria-label="Decision guide">
+    <div><b>당장 사용</b><span>스테이지나 유닛 리소스에서 바로 쓰는 전투 투입 대상입니다.</span></div>
+    <div><b>후보 보관</b><span>완성도는 괜찮지만 지금 투입 여부는 별도로 고를 후보입니다.</span></div>
+    <div><b>지금 안 씀</b><span>현재 빌드/스테이지에서는 제외하고, 수동 결정 시 별도 아카이브 후보로 보관할 대상입니다.</span></div>
+    <div><b>수정 필요</b><span>참조되지만 프리뷰 방향이나 필수 이미지가 부족합니다.</span></div>
+    <div><b>판단 보류</b><span>이름, 용도, 중복 여부를 더 봐야 하는 항목입니다.</span></div>
   </section>
 
   <section class="pager-shell" aria-label="Page navigation">
     <div class="pager-main">
-      <button id="prevPageBtn">← Prev 100</button>
-      <select id="pageSelect" title="Jump to page"></select>
-      <button id="nextPageBtn">Next 100 →</button>
+      <button id="prevPageBtn">Prev 100</button>
+      <select id="pageSelect" title="페이지 이동"></select>
+      <button id="nextPageBtn">Next 100</button>
     </div>
     <div id="pageInfo" class="page-info"></div>
   </section>
 
-  <main id="cards" class="review-list"></main>
+  <main id="cards" class="unit-list"></main>
 
   <footer class="site-footer">
-    This page edits decisions in browser memory/localStorage only. Use <b>Export decisions.json</b>, then place it at <code>local_asset_review/decisions/decisions.json</code> for batch planning.
+    결정은 브라우저 localStorage에 저장됩니다. 수동으로 <b>지금 안 씀</b> 처리한 몬스터는 <code>Export overrides</code> 후 아카이브 플래너로 Godot 비로드/복원 계획을 만들 수 있습니다.
   </footer>
 
-  <script src="app.js?v=diag4"></script>
+  <script src="app.js"></script>
 </body>
 </html>
